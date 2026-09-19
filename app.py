@@ -1,7 +1,8 @@
 import os
 from datetime import datetime, timezone
-
 from flask import Flask, jsonify
+
+CRASH_ON_STARTUP = 1 / 0  # deliberately broken for rollback demo
 
 app = Flask(__name__)
 
@@ -37,5 +38,11 @@ def health():
 
 
 if __name__ == "__main__":
+    print("Starting broken build on purpose")
+    raise RuntimeError("Simulated startup crash for rollback demo")
     port = int(os.environ.get("PORT", "5000"))
     app.run(host="127.0.0.1", port=port)
+
+#if __name__ == "__main__":
+#    port = int(os.environ.get("PORT", "5000"))
+#    app.run(host="127.0.0.1", port=port)
