@@ -11,6 +11,7 @@ DEPLOYED_AT = datetime.now(timezone.utc).isoformat()
 
 
 def add(a, b):
+    # simple addition helper
     return a + b
 
 
