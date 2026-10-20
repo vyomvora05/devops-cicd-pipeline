@@ -77,10 +77,8 @@ pipeline {
             steps {
                 sh '''
                     # stop any previously running instance
-                    if [ -f ${DEPLOY_DIR}/current.pid ]; then
-                        kill $(cat ${DEPLOY_DIR}/current.pid) 2>/dev/null || true
-                        rm -f ${DEPLOY_DIR}/current.pid
-                    fi
+                    lsof -ti:${APP_PORT} | xargs kill -9 2>/dev/null || true
+                    rm -f ${DEPLOY_DIR}/current.pid
 
                     cd ${DEPLOY_DIR}/releases/${BUILD_NUMBER}
                     . venv/bin/activate
